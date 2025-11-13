@@ -1,0 +1,97 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Xcode
+*.xccheckout
+*.xcuserstate
+*.xcuserdatad
+*.xcworkspace/xcuserdata/
+*.xcworkspace/xcshareddata/swiftpm/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+build/
+DerivedData/
+
+# Swift Package Manager
+.swiftpm/
+.build/
+
+# Flutter/Dart
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.flutter-plugins
+.pub-cache/
+.pub/
+/build/
+/coverage/
+.metadata
+pubspec.lock
+flutter/.ios/
+flutter/.android/
+flutter/.metadata
+flutter/common/
+flutter/build/
+flutter/.dart_tool/
+flutter/.flutter-plugins
+flutter/.flutter-plugins-dependencies
+flutter/.packages
+flutter/pubspec.lock
+
+# CocoaPods
+Pods/
+Podfile.lock
+*.xcworkspace
+!*.xcworkspace/contents.xcworkspacedata
+
+# Build outputs
+out/
+*.xcarchive
+*.xcframework
+*.framework
+*.dSYM
+*.ipa
+*.app.dSYM.zip
+*.app.dSYM
+
+# Symbolication
+app.*.symbols
+symbols/
+
+# Obfuscation
+app.*.map.json
+
+# Generated files
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+
+# Scripts output
+*.zip
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+

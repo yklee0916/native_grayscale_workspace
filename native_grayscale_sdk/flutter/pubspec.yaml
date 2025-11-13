@@ -1,0 +1,35 @@
+name: native_grayscale_sdk
+description: "Native SDK for image grayscale conversion using Flutter plugins."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  grayscale:
+    git:
+      url: https://github.com/yklee0916/flutter_grayscale.git
+      ref: main
+  log:
+    git:
+      url: https://github.com/yklee0916/flutter_log.git
+      ref: main
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  module:
+    androidX: true
+    androidPackage: com.sktelecom.native.grayscale.sdk
+    iosBundleIdentifier: com.sktelecom.native.grayscale.sdk
