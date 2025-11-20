@@ -6,6 +6,7 @@
 //
 
 import Flutter
+import FlutterPluginRegistrant
 import Foundation
 
 internal class NativeGrayscaleSDKImpl: Loggable {
@@ -39,6 +40,9 @@ internal class NativeGrayscaleSDKImpl: Loggable {
         self.flutterEngine?.run(withEntrypoint: nil)
       }
       guard let flutterEngine = self.flutterEngine else { return }
+      
+      // 플러그인 등록 (Grayscale 플러그인 등)
+      GeneratedPluginRegistrant.register(with: flutterEngine)
       
       // Image channel (grayscale requests)
       imageChannel = FlutterMethodChannel(

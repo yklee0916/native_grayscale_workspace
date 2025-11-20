@@ -7,15 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02C7C46E2EC1D50E0012AB14 /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C7C46C2EC1D50E0012AB14 /* App.xcframework */; };
-		02C7C46F2EC1D50E0012AB14 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C7C46D2EC1D50E0012AB14 /* Flutter.xcframework */; };
+		02A145BF2ECEEB540028CA92 /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C7C46C2EC1D50E0012AB14 /* App.xcframework */; };
+		02A145C12ECEEB540028CA92 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C7C46D2EC1D50E0012AB14 /* Flutter.xcframework */; };
+		02A145C62ECEEB550028CA92 /* grayscale.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A145C42ECEEB540028CA92 /* grayscale.xcframework */; };
+		02A145C82ECEEB550028CA92 /* FlutterPluginRegistrant.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A145C52ECEEB540028CA92 /* FlutterPluginRegistrant.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02A145C42ECEEB540028CA92 /* grayscale.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = grayscale.xcframework; path = ../out/ios/Debug/grayscale.xcframework; sourceTree = "<group>"; };
+		02A145C52ECEEB540028CA92 /* FlutterPluginRegistrant.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FlutterPluginRegistrant.xcframework; path = ../out/ios/Debug/FlutterPluginRegistrant.xcframework; sourceTree = "<group>"; };
 		02C7C46C2EC1D50E0012AB14 /* App.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = App.xcframework; path = ../out/ios/Debug/App.xcframework; sourceTree = SOURCE_ROOT; };
 		02C7C46D2EC1D50E0012AB14 /* Flutter.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:S8QB4VV633:FLUTTER.IO LLC"; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = ../out/ios/Debug/Flutter.xcframework; sourceTree = SOURCE_ROOT; };
 		FLUTTER001 /* NativeGrayscaleSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NativeGrayscaleSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		02A1460F2ECEEC140028CA92 /* Exceptions for "NativeGrayscaleSDK" folder in "NativeGrayscaleSDK" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Frameworks,
+			);
+			target = FLUTTER009 /* NativeGrayscaleSDK */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 		FLUTTER002 /* Exceptions for "NativeGrayscaleSDK" folder in "Headers" phase from "NativeGrayscaleSDK" target */ = {
@@ -34,6 +48,7 @@
 		FLUTTER004 /* NativeGrayscaleSDK */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				02A1460F2ECEEC140028CA92 /* Exceptions for "NativeGrayscaleSDK" folder in "NativeGrayscaleSDK" target */,
 				FLUTTER002 /* Exceptions for "NativeGrayscaleSDK" folder in "Headers" phase from "NativeGrayscaleSDK" target */,
 			);
 			path = NativeGrayscaleSDK;
@@ -46,8 +61,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02C7C46E2EC1D50E0012AB14 /* App.xcframework in Frameworks */,
-				02C7C46F2EC1D50E0012AB14 /* Flutter.xcframework in Frameworks */,
+				02A145C62ECEEB550028CA92 /* grayscale.xcframework in Frameworks */,
+				02A145C12ECEEB540028CA92 /* Flutter.xcframework in Frameworks */,
+				02A145C82ECEEB550028CA92 /* FlutterPluginRegistrant.xcframework in Frameworks */,
+				02A145BF2ECEEB540028CA92 /* App.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +83,8 @@
 		FLUTTER007 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				02A145C52ECEEB540028CA92 /* FlutterPluginRegistrant.xcframework */,
+				02A145C42ECEEB540028CA92 /* grayscale.xcframework */,
 				02C7C46C2EC1D50E0012AB14 /* App.xcframework */,
 				02C7C46D2EC1D50E0012AB14 /* Flutter.xcframework */,
 			);
@@ -368,6 +387,7 @@
 				PRODUCT_NAME = NativeGrayscaleSDK;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
+				STRIP_STYLE = "non-global";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;

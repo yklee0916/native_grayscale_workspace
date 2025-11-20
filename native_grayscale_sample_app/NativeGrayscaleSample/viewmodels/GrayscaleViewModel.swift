@@ -9,7 +9,6 @@ import SwiftUI
 import Combine
 import PhotosUI
 import NativeGrayscaleSDK
-import FlutterPluginRegistrant
 
 @MainActor
 class GrayscaleViewModel: ObservableObject {
@@ -41,12 +40,6 @@ class GrayscaleViewModel: ObservableObject {
           errorMessage = "SDK 초기화 실패"
           return
         }
-        
-        // 플러그인 등록 (Grayscale 플러그인 등)
-        if let engine = GrayscaleSDK.shared.flutterEngine {
-          GeneratedPluginRegistrant.register(with: engine)
-        }
-        
         // SDK 로그 인터셉터 설정
         GrayscaleSDK.shared.setLogInterceptor(ConsoleLogListener())
         

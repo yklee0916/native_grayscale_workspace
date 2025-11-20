@@ -21,7 +21,7 @@ if [ ! -d ".ios" ]; then
     flutter create --template module .
 fi
 
-flutter build ios-framework --xcframework --output=../out/ios --no-profile --no-release --no-plugins
+flutter build ios-framework --xcframework --output=../out/ios --no-profile --no-release
 
 cd "$SDK_DIR/ios/NativeGrayscaleSDK"
 rm -rf Frameworks
