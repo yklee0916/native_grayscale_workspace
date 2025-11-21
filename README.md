@@ -54,7 +54,7 @@ cd native_grayscale_sdk
 1. Open in Xcode:
 ```bash
 cd native_grayscale_sample_app
-open NativeGrayscaleSample.xcodeproj
+open NativeGrayscaleSample.xcworkspace
 ```
 
 2. Build and run in Xcode
