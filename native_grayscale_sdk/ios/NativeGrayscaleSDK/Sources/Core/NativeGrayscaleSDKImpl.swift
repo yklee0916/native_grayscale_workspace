@@ -26,10 +26,10 @@ internal class NativeGrayscaleSDKImpl: Loggable {
   }
   
   func getVersion() -> String {
-    if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
+    if let version = Bundle.init(identifier: identifier)?.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
       return version
     }
-    return "1.0.0"
+    return ""
   }
   
   func initialize(completion: @escaping (Bool) -> Void) {
