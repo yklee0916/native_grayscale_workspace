@@ -57,7 +57,6 @@ class LogMethodChannel with Logger implements LogMessageListener {
   Future<void> _handleSetLogInterceptor(MethodCall call) async {
     try {
       var args = call.arguments as Map<dynamic, dynamic>?;
-      debugPrint("_handleSetLogInterceptor: $args");
       var enabled = args?['enabled'] ?? false;
       var minimumLogLevel = args?['minimumLogLevel'];
       if (enabled) {
@@ -70,7 +69,7 @@ class LogMethodChannel with Logger implements LogMessageListener {
         final level = LogLevel.getByRawValue(minimumLogLevel);
         LogManager().setMinimumLogLevel(level);
       }
-      logI("_handleSetLogInterceptor: enabled=$enabled, minimumLogLevel=$minimumLogLevel");
+      logI("SetLogInterceptor: enabled=$enabled, minimumLogLevel=$minimumLogLevel");
     } catch (e) {
       final error = NativeGrayscaleSDKError.setLogInterceptorError.toMap('Failed to set log interceptor: $e');
       throw PlatformException(

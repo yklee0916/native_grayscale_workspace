@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		029045B82ECFF0B00008E84C /* Toasts in Frameworks */ = {isa = PBXBuildFile; productRef = 029045B72ECFF0B00008E84C /* Toasts */; };
 		02BA4E0C2EC47A0B00DEC8DD /* NativeGrayscaleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BA4E092EC47A0000DEC8DD /* NativeGrayscaleSDK.framework */; };
 		02BA4E0D2EC47A0B00DEC8DD /* NativeGrayscaleSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02BA4E092EC47A0000DEC8DD /* NativeGrayscaleSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FF496063ECEE985A7A2E3F36 /* Pods_NativeGrayscaleSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BE255195DBA1F95893D197 /* Pods_NativeGrayscaleSample.framework */; };
@@ -78,6 +79,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02BA4E0C2EC47A0B00DEC8DD /* NativeGrayscaleSDK.framework in Frameworks */,
+				029045B82ECFF0B00008E84C /* Toasts in Frameworks */,
 				FF496063ECEE985A7A2E3F36 /* Pods_NativeGrayscaleSample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,6 +184,9 @@
 			);
 			mainGroup = 02813F972EC1BC0600172149;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				029045B62ECFF0B00008E84C /* XCRemoteSwiftPackageReference "swiftui-toasts" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 02813FA12EC1BC0600172149 /* Products */;
 			projectDirPath = "";
@@ -522,6 +527,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		029045B62ECFF0B00008E84C /* XCRemoteSwiftPackageReference "swiftui-toasts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sunghyun-k/swiftui-toasts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		029045B72ECFF0B00008E84C /* Toasts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 029045B62ECFF0B00008E84C /* XCRemoteSwiftPackageReference "swiftui-toasts" */;
+			productName = Toasts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 02813F982EC1BC0600172149 /* Project object */;
 }

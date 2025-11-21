@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Toasts
 
 @main
 struct MainApp: App {
@@ -13,7 +14,7 @@ struct MainApp: App {
   
   var body: some Scene {
     WindowGroup {
-      ContentView()
+      ContentView().installToast(position: .bottom)
     }
   }
 }

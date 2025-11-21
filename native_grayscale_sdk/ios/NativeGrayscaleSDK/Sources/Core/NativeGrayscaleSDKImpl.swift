@@ -19,6 +19,7 @@ internal class NativeGrayscaleSDKImpl: Loggable {
   private let identifier = "com.sktelecom.native.grayscale.sdk"
   
   private var minimumLogLevel: FILogLevel?
+  private var isInitialized: Bool = false
   
   override init() {
     super.init()
@@ -33,6 +34,12 @@ internal class NativeGrayscaleSDKImpl: Loggable {
   
   func initialize(completion: @escaping (Bool) -> Void) {
     Task { @MainActor in
+      // 이미 초기화되었으면 중복 초기화 방지
+      if self.isInitialized {
+        completion(true)
+        return
+      }
+      
       self.dispatchQueue = DispatchQueue(label: "\(identifier)/engine", qos: DispatchQoS.userInteractive)
       
       if self.flutterEngine == nil {
@@ -74,6 +81,7 @@ internal class NativeGrayscaleSDKImpl: Loggable {
         }
       })
       
+      self.isInitialized = true
       completion(true)
     }
   }

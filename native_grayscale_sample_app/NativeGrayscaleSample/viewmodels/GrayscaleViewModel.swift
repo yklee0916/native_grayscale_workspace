@@ -28,20 +28,20 @@ class GrayscaleViewModel: ObservableObject {
   
   func initializeSDK() {
     // SDK 버전 확인
-    print("NativeGrayscaleSDK Ver: \(GrayscaleSDK.shared.getVersion())")
+    print("GrayscaleSDK getVersion: \(GrayscaleSDK.shared.getVersion())")
     
     Task {
       do {
         // SDK 초기화
         let initializeResult = try await GrayscaleSDK.shared.initialize()
-        print("initializeResult: \(String(describing: initializeResult))")
+        print("GrayscaleSDK initialize: \(String(describing: initializeResult))")
         
         if !initializeResult {
           errorMessage = "SDK 초기화 실패"
           return
         }
         // SDK 로그 인터셉터 설정
-        GrayscaleSDK.shared.setLogInterceptor(ConsoleLogListener())
+        GrayscaleSDK.shared.setLogInterceptor(ConsoleLogListener.shared)
         
         isSDKInitialized = true
       } catch {
@@ -69,16 +69,14 @@ class GrayscaleViewModel: ObservableObject {
       errorMessage = "SDK가 초기화되지 않았습니다"
       return
     }
-    
     guard let imagePath = selectedImagePath else {
       errorMessage = "이미지를 선택해주세요"
       return
     }
-    
     isConverting = true
     errorMessage = nil
     
-    Task {
+    Task { @MainActor in
       do {
         let resultPath = try await GrayscaleSDK.shared.convertToGrayscale(imagePath: imagePath)
         
