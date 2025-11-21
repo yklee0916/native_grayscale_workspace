@@ -1,12 +1,25 @@
 #!/bin/bash
 
-TAG=$1
-if [ -z "$TAG" ]; then
+TAG_INPUT=$1
+if [ -z "$TAG_INPUT" ]; then
     echo "TAG number is empty."
     echo "Usage: $0 <tag>"
-    echo "Example: $0 1.0.0"
+    echo "Example: $0 1.0.0 or $0 v1.0.0"
     exit 1
 fi
+
+# TAG 정규화: v 접두사가 없으면 추가, 있으면 그대로 유지
+if [[ $TAG_INPUT == v* ]]; then
+    TAG="$TAG_INPUT"
+    VERSION_NUMBER="${TAG_INPUT#v}"
+else
+    TAG="v$TAG_INPUT"
+    VERSION_NUMBER="$TAG_INPUT"
+fi
+
+echo "Input tag: $TAG_INPUT"
+echo "Normalized tag: $TAG"
+echo "Version number: $VERSION_NUMBER"
 
 # GitHub 설정
 GITHUB_OWNER="yklee0916"
@@ -106,6 +119,8 @@ else
     fi
     
     echo "Release created successfully with ID: $RELEASE_ID"
+    echo "Tag: $TAG (v prefix included)"
+    echo "Version: $VERSION_NUMBER (for SPM usage)"
     if [ -n "$UPLOAD_URL_TEMPLATE" ]; then
         echo "Upload URL template: $UPLOAD_URL_TEMPLATE"
     fi
@@ -118,6 +133,12 @@ if [ -z "$RELEASE_ID" ]; then
 fi
 
 # 각 zip 파일 업로드
+echo ""
+echo "Starting file uploads..."
+SUCCESSFUL_UPLOADS=0
+SKIPPED_FILES=0
+FAILED_UPLOADS=0
+
 for zip_file in "${ZIP_FILES[@]}"; do
     echo ""
     echo "Uploading $zip_file..."
@@ -126,19 +147,27 @@ for zip_file in "${ZIP_FILES[@]}"; do
     if [ -n "$UPLOAD_URL_TEMPLATE" ]; then
         UPLOAD_URL="${UPLOAD_URL_TEMPLATE}?name=${zip_file}"
     else
-        # fallback: 일반 API URL 사용
-        UPLOAD_URL="${GITHUB_API_URL}/releases/${RELEASE_ID}/assets?name=${zip_file}"
+        # fallback: uploads.github.com 사용 (더 정확한 URL)
+        UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases/${RELEASE_ID}/assets?name=${zip_file}"
+    fi
+    
+    # 파일 크기 확인 및 출력
+    FILE_SIZE=$(stat -c%s "$zip_file" 2>/dev/null || stat -f%z "$zip_file" 2>/dev/null || echo "unknown")
+    if [ "$FILE_SIZE" != "unknown" ]; then
+        FILE_SIZE_MB=$((FILE_SIZE / 1024 / 1024))
+        echo "File size: ${FILE_SIZE_MB}MB"
     fi
     
     # curl 명령어 출력 (토큰은 마스킹)
     MASKED_TOKEN="${GITHUB_TOKEN:0:10}***"
-    echo "curl -s -w \"\\n%{http_code}\" \\"
-    echo "    -X POST \\"
-    echo "    -H \"Authorization: token $MASKED_TOKEN\" \\"
-    echo "    -H \"Accept: application/vnd.github.v3+json\" \\"
-    echo "    -H \"Content-Type: application/zip\" \\"
-    echo "    --data-binary \"@${zip_file}\" \\"
-    echo "    \"$UPLOAD_URL\""
+    echo "Executing upload command:"
+    echo "   curl -s -w \"\\n%{http_code}\" \\"
+    echo "        -X POST \\"
+    echo "        -H \"Authorization: token $MASKED_TOKEN\" \\"
+    echo "        -H \"Accept: application/vnd.github.v3+json\" \\"
+    echo "        -H \"Content-Type: application/zip\" \\"
+    echo "        --data-binary \"@${zip_file}\" \\"
+    echo "        \"$UPLOAD_URL\""
     
     UPLOAD_RESPONSE=$(curl -s -w "\n%{http_code}" \
         -X POST \
@@ -152,19 +181,32 @@ for zip_file in "${ZIP_FILES[@]}"; do
     UPLOAD_BODY=$(echo "$UPLOAD_RESPONSE" | sed '$d')
     
     if [ "$UPLOAD_HTTP_CODE" = "201" ]; then
-        echo "✅ $zip_file uploaded successfully"
+        echo "SUCCESS: $zip_file uploaded successfully"
+        ((SUCCESSFUL_UPLOADS++))
     else
         # 이미 업로드된 파일인 경우 (422 에러)
         if [ "$UPLOAD_HTTP_CODE" = "422" ]; then
-            echo "⚠️  $zip_file already exists in release. Skipping..."
+            echo "WARNING: $zip_file already exists in release. Skipping..."
+            ((SKIPPED_FILES++))
         else
-            echo "❌ Failed to upload $zip_file. HTTP code: $UPLOAD_HTTP_CODE"
+            echo "ERROR: Failed to upload $zip_file. HTTP code: $UPLOAD_HTTP_CODE"
             echo "Response: $UPLOAD_BODY"
+            ((FAILED_UPLOADS++))
         fi
     fi
 done
 
 echo ""
-echo "✅ All xcframework files uploaded successfully!"
-echo "Release URL: https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/releases/tag/${TAG}"
+echo "Upload Summary:"
+echo "   Successful: $SUCCESSFUL_UPLOADS files"
+echo "   Skipped: $SKIPPED_FILES files"
+echo "   Failed: $FAILED_UPLOADS files"
 
+if [ "$FAILED_UPLOADS" -gt 0 ]; then
+    echo ""
+    echo "WARNING: Some uploads failed. Please check the errors above."
+    echo "You can re-run this script to retry failed uploads."
+fi
+
+echo ""
+echo "Process completed!"
